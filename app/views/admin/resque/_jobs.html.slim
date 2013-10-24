@@ -1,0 +1,20 @@
+.table_tools
+  ul.scopes.table_tools_segmented_control
+    - Resque.queues.each do |queue|
+      li.scope class=("selected" if params[:queue] == queue)
+        a.table_tools_button href=url_for(queue: queue) 
+          = "#{queue} "
+          span.count (#{Resque.size queue})
+.paginated_collection: .paginated_collection_contents: .index_content: .index_as_table
+  table.index_table.index[border=0 cellspacing=0 cellpadding=0 paginator='true']
+    thead: tr
+      th Class
+      th Arguments
+      th Queue
+      th Run at
+    tbody
+      - if params[:queue].blank?
+        = render "admin/resque/working_jobs"
+      - else
+        = render "admin/resque/queue_jobs"
+  #index_footer

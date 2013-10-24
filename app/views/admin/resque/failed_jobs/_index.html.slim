@@ -1,0 +1,29 @@
+.table_tools
+  ul.scopes.table_tools_segmented_control
+    li.scope
+      a.table_tools_button href="/admin/properties?order=id_desc&amp;page=1&amp;scope=unconfirmed"
+        = "<ScopeName>"
+        span.count (1337)
+.paginated_collection: .paginated_collection_contents: .index_content: .index_as_table
+  table.index_table.index[border=0 cellspacing=0 cellpadding=0 id='properties' paginator='true']
+    thead: tr
+      th Failed at
+      th Class
+      th Arguments
+      th Exception
+      th Error
+      th actions
+        
+    tbody
+      - Resque::Failure.all(0, 100).each.with_index do |failed_job, job_id|
+        tr class=cycle("odd", "even")
+          td= failed_job.try(:[], 'failed_at')
+          td= failed_job.try(:[], 'payload').try(:[], 'class')
+          td= failed_job.try(:[], 'payload').try(:[], 'args')
+          td= failed_job.try(:[], 'exception')
+          td= failed_job.try(:[], 'error')
+          td
+            = link_to "view", admin_resque_failed_jobs_path(id: job_id)
+            '  |
+            = link_to "Requeue and remove", admin_resque_failed_jobs_requeue_path(id: job_id)
+  #index_footer

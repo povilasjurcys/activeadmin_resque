@@ -1,0 +1,22 @@
+h1 Delayed Jobs
+p.intro This list below contains the timestamps for scheduled delayed jobs.
+
+.paginated_collection: .paginated_collection_contents: .index_content: .index_as_table
+  table.index_table.index[border=0 cellspacing=0 cellpadding=0 paginator='true']
+    thead: tr
+      th Timestamp
+      th Job count
+      th Class
+      th Args
+    tbody
+      - resque.delayed_queue_peek(start, 20).each do |timestamp|
+        tr
+          td: a[href="#{u "delayed/#{timestamp}"}"]= format_time(Time.at(timestamp))
+          td= delayed_timestamp_size = resque.delayed_timestamp_size(timestamp)
+          - job = resque.delayed_timestamp_peek(timestamp, 0, 1).first
+          td
+            - if job && delayed_timestamp_size == 1
+              = h(job['class'])
+            - else
+              a[href="#{u "delayed/#{timestamp}"}"] see details
+          td= h(job['args'].inspect) if job && delayed_timestamp_size == 1

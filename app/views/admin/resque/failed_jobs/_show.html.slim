@@ -1,0 +1,30 @@
+.panel
+  h3 FailedJob ##{params[:id]}
+  .panel_contents: .attributes_table: table[border=0 cellspacing=0 cellpadding=0]: tbody
+    tr
+      th Id
+      td= params[:id]
+    tr
+      th Empty
+      td: span[class="empty"] Empty
+    tr
+      th Failed at
+      td= job.try(:[], 'failed_at')
+    tr
+      th Class
+      td= job.try(:[], 'payload').try(:[], 'class')
+    tr
+      th Argumets
+      td= job.try(:[], 'payload').try(:[], 'args')
+    tr
+      th Exception
+      td= job.try(:[], 'exception')
+    tr
+      th Error
+      td= job.try(:[], 'error')
+    tr
+      th Backtrace
+      td= job.try(:[], 'backtrace')
+    tr
+      th Job hash
+      td= job

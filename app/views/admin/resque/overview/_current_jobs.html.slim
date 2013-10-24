@@ -1,0 +1,10 @@
+- if Resque.working.empty?
+  tr class=cycle("odd", "even")
+    td[colspan=4]: i= "empty"
+- else
+  - Resque.working.map(&:job).each do |job|
+    tr class=cycle("odd", "even")
+      td= job.try(:[], 'payload').try(:[], 'class')
+      td= job.try(:[], 'payload').try(:[], 'args') || '-'
+      td= job.try(:[], 'queue')
+      td= job.try(:[], 'run_at')

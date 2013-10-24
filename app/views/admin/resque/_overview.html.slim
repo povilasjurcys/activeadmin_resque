@@ -1,0 +1,10 @@
+h2 Current jobs
+.paginated_collection: .paginated_collection_contents: .index_content: .index_as_table
+  table.index_table.index[border=0 cellspacing=0 cellpadding=0 id='properties' paginator='true']
+    thead: tr
+      th Class
+      th Arguments
+      th Queue
+      th Run at
+    tbody= render "admin/resque/overview/current_jobs"
+  #index_footer

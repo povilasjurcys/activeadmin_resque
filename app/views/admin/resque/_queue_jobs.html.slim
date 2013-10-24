@@ -1,0 +1,6 @@
+- Resque.peek(params[:queue], 0, 100).each do |job|
+  tr class=cycle("odd", "even")
+    td= job.try(:[], 'class')
+    td= job.try(:[], 'args') || '-'
+    td= params[:queue]
+    td -
