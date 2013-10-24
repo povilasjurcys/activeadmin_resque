@@ -26,4 +26,6 @@
             = link_to "view", admin_resque_failed_jobs_path(id: job_id)
             '  |
             = link_to "Requeue and remove", admin_resque_failed_jobs_requeue_path(id: job_id)
+            '  |
+            = link_to "Remove", admin_resque_failed_jobs_remove_path(id: job_id)
   #index_footer
